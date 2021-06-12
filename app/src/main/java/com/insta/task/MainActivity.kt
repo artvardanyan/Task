@@ -3,6 +3,7 @@ package com.insta.task
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.insta.task.databinding.ActivityMainBinding
+import com.insta.task.fragments.LoginFragment
 
 class MainActivity : AppCompatActivity() {
 
