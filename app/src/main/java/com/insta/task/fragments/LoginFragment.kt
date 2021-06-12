@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.ViewModelProviders
+import com.insta.task.R
 import com.insta.task.databinding.FragmentLoginBinding
 import com.insta.task.viewmodel.LoginViewModel
 
@@ -26,6 +27,16 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel?.liveData?.observe(viewLifecycleOwner, {
+            activity?.supportFragmentManager?.beginTransaction()
+                ?.replace(R.id.container, UserFragment())
+                ?.commit()
+        })
+
+        binding?.loginBtn?.setOnClickListener {
+            viewModel?.login(binding?.userName?.text.toString(), binding?.password?.text.toString())
+        }
 
         binding?.userNameLayout?.editText?.doAfterTextChanged {
             enableButton(binding?.userName?.text.toString(), binding?.password?.text.toString())
