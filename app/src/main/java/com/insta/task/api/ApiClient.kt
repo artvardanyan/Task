@@ -21,5 +21,9 @@ class ApiClient {
         val retrofitService: LoginService by lazy {
             retrofit.create(LoginService::class.java)
         }
+
+        val retrofitServiceUser: PhotoService by lazy {
+            retrofit.create(PhotoService::class.java)
+        }
     }
 }

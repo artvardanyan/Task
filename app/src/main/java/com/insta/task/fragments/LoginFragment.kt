@@ -61,13 +61,13 @@ class LoginFragment : Fragment() {
                         putString(USER_PHOTO, it.photo)
                         commit()
                     }
-                    val user = LoginResponse(SUCCESS, it.id, it.username, "", "", true, it.photo )
+
+                    val user = LoginResponse(SUCCESS, it.id, it.username, it.name, it.email, true, it.photo )
                     activity?.supportFragmentManager?.beginTransaction()
                         ?.replace(R.id.container, UserFragment.newInstance(user))
                         ?.commit()
                 }
             }
-
         })
 
         binding?.loginBtn?.setOnClickListener {
@@ -84,11 +84,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun enableButton(userName: String, password: String) {
-        if (userName.isNotBlank() && password.isNotBlank()) {
-            binding?.loginBtn?.isEnabled = true
-        } else {
-            binding?.loginBtn?.isEnabled = false
-        }
+        binding?.loginBtn?.isEnabled = userName.isNotBlank() && password.isNotBlank()
     }
 
 
@@ -96,38 +92,5 @@ class LoginFragment : Fragment() {
         binding = null
         super.onDestroyView()
     }
-
-//    private fun login() {
-//        val loginRequest = LoginRequest(
-//            binding?.userName?.text.toString(),
-//            binding?.password?.text.toString()
-//        )
-//        val loginResponse: Call<LoginResponse?>? = ApiClient.service.userLogin(loginRequest)
-//
-//        loginResponse?.enqueue(object : Callback<LoginResponse?> {
-//            override fun onResponse(
-//                call: Call<LoginResponse?>,
-//                response: Response<LoginResponse?>
-//            ) {
-//                if (response.isSuccessful) {
-//
-//                    val loginResponse = response.body()
-//                    val preferences: SharedPreferences =
-//                        activity?.getSharedPreferences("pref", Context.MODE_PRIVATE)!!
-//                    preferences.getString("NAME", loginResponse?.name)
-//
-//                    activity?.supportFragmentManager?.beginTransaction()
-//                        ?.replace(R.id.container, UserFragment())
-//                        ?.commit()
-//                } else {
-//                    Toast.makeText(context, "Login Failed", Toast.LENGTH_LONG).show()
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<LoginResponse?>, t: Throwable) {
-//
-//            }
-//        })
-//    }
 
 }

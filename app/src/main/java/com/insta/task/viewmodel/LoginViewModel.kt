@@ -1,9 +1,12 @@
 package com.insta.task.viewmodel
 
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.material.snackbar.Snackbar
 import com.insta.task.api.ApiClient
+import com.insta.task.fragments.LoginFragment
 import com.insta.task.model.LoginRequest
 import com.insta.task.model.LoginResponse
 import kotlinx.coroutines.launch
@@ -22,6 +25,7 @@ class LoginViewModel : ViewModel() {
         val loginResponse: Call<LoginResponse?>? = ApiClient.retrofitService.userLogin(loginRequest)
 
         loginResponse?.enqueue(object : Callback<LoginResponse?> {
+
             override fun onResponse(call: Call<LoginResponse?>, response: Response<LoginResponse?>) {
                 viewModelScope.launch {
                     liveData.value = response.body()
